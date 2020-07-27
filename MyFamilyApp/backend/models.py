@@ -3,6 +3,8 @@ from picklefield.fields import PickledObjectField
 from django.db.models import Q,Max
 from django.contrib.auth.models import User
 
+app_name="backend"
+
 class Person(models.Model):
     GENDER_CHOICES=(
         ('M',"Male"),
@@ -27,9 +29,9 @@ class Person(models.Model):
     children        = PickledObjectField(blank=True,null=True)
 
     #Contact Information
-    contact_number  = models.CharField(max_length=15,blank=True)
-    email           = models.CharField(max_length=100,blank=True)
-    address         = models.CharField(max_length=100,blank=True)
+    contact_number  = models.CharField(max_length=15,null=True)
+    email           = models.CharField(max_length=100,null=True)
+    address         = models.CharField(max_length=100,null=True)
 
     #Data Detail
     created_on      = models.DateTimeField(auto_now_add=True)
@@ -41,6 +43,12 @@ class Person(models.Model):
 
     def __unicode__(self):
         return self.full_name
+
+    def get_romanized_name(self):
+        try:
+            import nepali_roman as nr
+            return nr.romanized_text(self.full_name)
+        except:pass
 
     def is_alive(self):
         if self.death=="Alive":
@@ -54,7 +62,7 @@ class Person(models.Model):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        pass
+        return reverse(f'/person/{self.id}')
 
     def get_children(self):
         children_ids=[child_id for child_id in self.children]
@@ -113,4 +121,5 @@ class Person(models.Model):
             except Exception as e:print(e)
 
 
-
+class Suggestions(models.Model):
+    pass

@@ -275,7 +275,7 @@ tbody tr:hover {
     content: "पिता";
   }
   table tbody tr td:nth-child(6):before {
-    content: "पिता पिता";
+    content: "हजुरबुबा";
   }
 
   .column4,

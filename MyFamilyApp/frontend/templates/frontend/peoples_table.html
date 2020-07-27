@@ -37,32 +37,53 @@
 							<th class="column4">जीवनसाथि</th>
 							<th class="column5">सन्तान</th>
 							<th class="column6">पिता</th>
-							<th class="column7">पिता पिता</th>
+							<th class="column7">हजुरबुबा</th>
 						</tr>
 					</thead>
 					<tbody>
 						{% for person in persons %}
-
 							<tr>
 								<td class="column1">{{person.id}}</td>
-								<td class="column2">{{person}}</td>
+								<td class="column2">
+									<a href="{{person.get_absolute_url}}">
+									{{person}}
+									</a>
+								</td>
 								<td class="column3">{{person.batch_no}}</td>
-								<td class="column4">{{person.spouses}}</td>
+								<td class="column4">
+									{% if person.gender == 'M' %}
+									<i class="fa fa-female" style="font-size:20px;color:rgb(41, 111, 240)"></i>
+									{% else %}
+									<i class="fa fa-male" style="font-size:20px;color:rgb(243, 130, 149)"></i>
+									{% endif %}
+									{{person.spouses}}
+								</td>
 								<td class="column5">
 									{% if person.children %}
 										{% for child in person.get_children %}
+										<a href="{{child.get_absolute_url}}">
 										<div>
 										{% if child.gender == 'M' %}
 										<i class="fa fa-male" style="font-size:20px;color:rgb(41, 111, 240)"></i>
 										{% else %}
 										<i class="fa fa-female" style="font-size:20px;color:rgb(243, 130, 149)"></i>
 										{% endif %}
-										{{child}} </div><br>
+										{{child}} </div>
+										</a>
+										<br>
 										{% endfor %}
 									{% endif %}
 								</td>
-								<td class="column6">{{person.father}}</td>
-								<td class="column7">{{person.father.father}}</td>
+								<td class="column6">
+									<a href="{{person.father.get_absolute_url}}">
+									{{person.father}}
+									</a>
+								</td>
+								<td class="column7">
+									<a href="{{person.father.father.get_absolute_url}}">
+									{{person.father.father}}
+									</a>
+								</td>
 							</tr>
 
 						{% endfor %}

@@ -17,7 +17,6 @@ SECRET_KEY = 'jbvj@6o^t-sjax&gq9v-l2p5i4vcx-^36$+c&i0-z0pf+b*764'
 DEBUG = True
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -77,7 +76,6 @@ DATABASES = {
 
 
 # Password validation
-# https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -94,9 +92,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_URL='/login/'
+LOGOUT_URL='/'
+LOGIN_REDIRECT_URL='/app/dashboard'
 
 # Internationalization
-# https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 

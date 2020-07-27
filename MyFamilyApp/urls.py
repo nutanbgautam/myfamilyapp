@@ -9,6 +9,7 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/',admin.sie.urls),
     path('',include('MyFamilyApp.frontend.urls',namespace="frontend")),
     path('app/',include('MyFamilyApp.backend.urls',namespace="backend"))
 ]

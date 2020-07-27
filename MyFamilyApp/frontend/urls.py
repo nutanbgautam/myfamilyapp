@@ -3,13 +3,14 @@
 FrontendApp URL Configuration
 
 """
-from django.contrib import admin
-from django.urls import path,include
-from MyFamilyApp.frontend.views import PersonListView
+from django.urls import path
+from MyFamilyApp.frontend.views import *
 
 app_name="frontend"
 
 urlpatterns = [
     path('',PersonListView.as_view(),name="peoples_table"),
-    path('sdf',PersonListView.as_view(),name="search_people"),
+    path('person/<pk>',PersonDetailView.as_view(),name="person_detail"),
+    path('search/<slug>',SearchView.as_view(),name="search_person"),
+    path('suggest/<pk>',SuggestionCreateView.as_view(),name="suggest_person")
 ]
