@@ -1,0 +1,13 @@
+from MyFamilyApp.backend.models import Person
+Person.objects.all().delete()
+a=Person(full_name="Nutan",gender="M")
+a.save()
+a1=Person(full_name="Nutan 1",gender="M",father=a)
+a2=Person(full_name="Nutan 2",gender="F",father=a)
+a1.save()
+a2.save()
+a11=Person(full_name="Nutan 1 1",gender="M",father=a1)
+a11.save()
+a21=Person(full_name="Nutan 2 1",gender="M",mother=a2,same_vamsha=False)
+a21.save()
+

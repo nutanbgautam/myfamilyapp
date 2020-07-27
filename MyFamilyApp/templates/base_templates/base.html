@@ -1,0 +1,44 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block page_title %}
+            Vamshawali
+        {% endblock page_title %}
+    </title>
+    {% block css %}
+    
+    {% endblock css %}
+
+    {% block extra_css %}
+    
+    {% endblock extra_css%}
+
+</head>
+<body>
+
+    {% block page_header %}
+
+    {% include 'base_templates/header.html' %}
+
+    {% endblock page_header %}
+
+
+    {% block page_content %}
+
+    {% endblock page_content %}
+
+    {% include 'base_templates/mobile_footer.html' %}
+
+    {% block js %}
+
+    {% endblock js %}
+
+	{% block extra_js %}
+
+    {% endblock extra_js %}
+</body>
+</html>

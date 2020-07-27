@@ -1,0 +1,86 @@
+{% extends 'base_templates/base.html' %}
+{% load static %}
+
+{% block page_title %}
+	Vamshawali
+{% endblock page_title %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'frontend/bootstrap_table/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'frontend/bootstrap_table/vendor/bootstrap/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'frontend/bootstrap_table/vendor/animate/animate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'frontend/bootstrap_table/vendor/select2/select2.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'frontend/bootstrap_table/vendor/perfect-scrollbar/perfect-scrollbar.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'frontend/bootstrap_table/css/util.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'frontend/bootstrap_table/css/main.css' %}">
+{% endblock extra_css %}
+
+{% block page_header %}
+
+{% include 'frontend/filters_bar_header.html' %}
+
+{% endblock page_header %}
+
+{% block page_content %}
+<!-- Peoples Table -->
+
+<div class="limiter">
+	<div class="container-table100">
+		<div class="wrap-table100">
+			<div class="table100">
+				<table>
+					<thead style="position:sticky;top:0;">
+						<tr class="table100-head">
+							<th class="column1">क्र.सं.</th>
+							<th class="column2">नाम</th>
+							<th class="column3">पुस्ता नं.</th>
+							<th class="column4">जीवनसाथि</th>
+							<th class="column5">सन्तान</th>
+							<th class="column6">पिता</th>
+							<th class="column7">पिता पिता</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for person in persons %}
+
+							<tr>
+								<td class="column1">{{person.id}}</td>
+								<td class="column2">{{person}}</td>
+								<td class="column3">{{person.batch_no}}</td>
+								<td class="column4">{{person.spouses}}</td>
+								<td class="column5">
+									{% if person.children %}
+										{% for child in person.get_children %}
+										<div>
+										{% if child.gender == 'M' %}
+										<i class="fa fa-male" style="font-size:20px;color:rgb(41, 111, 240)"></i>
+										{% else %}
+										<i class="fa fa-female" style="font-size:20px;color:rgb(243, 130, 149)"></i>
+										{% endif %}
+										{{child}} </div><br>
+										{% endfor %}
+									{% endif %}
+								</td>
+								<td class="column6">{{person.father}}</td>
+								<td class="column7">{{person.father.father}}</td>
+							</tr>
+
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--Peoples Table END-->
+{% endblock page_content %}
+
+
+{% block extra_js %}
+<script src="{% static 'frontend/bootstrap_table/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'frontend/bootstrap_table/vendor/bootstrap/js/popper.js' %}"></script>
+<script src="{% static 'frontend/bootstrap_table/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'frontend/bootstrap_table/vendor/select2/select2.min.js' %}"></script>
+<script src="{% static 'frontend/bootstrap_table/js/main.js' %}"></script>
+{% endblock extra_js %}

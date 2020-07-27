@@ -1,0 +1,138 @@
+<!-- Mobile Footer -->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+    integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+<style>
+    .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100vw;
+        height: 60px;
+        background-color: #f5f5f5;
+
+        border-top: 1px solid transparent;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    div#buttonGroup {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    div#buttonGroup>a{
+        text-decoration: none;
+        
+    }
+
+    div#buttonGroup>a>button{
+        display: flex;
+        cursor: pointer;
+    }
+
+    .group-container {
+        padding: 0;
+        height: 100%;
+    }
+
+    .selectors,
+    .block {
+        height: 100%;
+    }
+
+    .selectors button {
+        border: 0;
+        border-radius: 0;
+        background-color: #f8f9fa !important;
+        width: 25%;
+        margin-left: 0;
+    }
+
+    .selectors button:active {
+        border: 0;
+    }
+
+    .selectors button:focus {
+        border: 0;
+        outline: 0;
+        box-shadow: 0 0 0 0px;
+    }
+
+    .active,
+    .selector-holder {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .inactive {
+        display: none;
+    }
+
+    .selector-holder span {
+        font-size: 0.8rem;
+    }
+
+    /* Colors of the buttons*/
+    .button-active,
+    .selectors button:hover,
+    .selectors button:active,
+    .selectors button:focus {
+        color: #ff0000;
+    }
+
+    .button-inactive {
+        color: #000;
+    }
+
+    @media (min-width: 1025px) {
+
+        footer{
+      display:none;
+  }
+
+    }
+</style>
+<!-- Google Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!-- Bottom Nav Bar -->
+<footer class="footer">
+    <div id="buttonGroup" class="btn-group selectors" role="group">
+        <a href="{% url 'frontend:peoples_table' %}">
+        <button id="feed" type="button" class="btn btn-secondary button-inactive">
+            <div class="selector-holder">
+                <i class="material-icons">view_list</i>
+                <span>Peoples Table</span>
+            </div>
+        </button>
+        </a>
+        <a href="{% url 'backend:dashboard' %}">
+        <button id="home" type="button" class="btn btn-secondary button-inactive">
+            <div class="selector-holder">
+                <i class="material-icons">dashboard</i>
+                <span>Dashboard</span>
+            </div>
+        </button>
+        </a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'backend:create_person' %}">
+        <button id="create" type="button" class="btn btn-secondary button-inactive">
+            <div class="selector-holder">
+                <i class="material-icons">create</i>
+                <span>Create</span>
+            </div>
+        </button>
+        </a>
+        <a href="{% url 'backend:suggestion_notifications' %}">
+        <button id="account" type="button" class="btn btn-secondary button-inactive">
+            <div class="selector-holder">
+                <i class="material-icons">add_alert</i>
+                <span>Suggestions</span>
+            </div>
+        </button>
+        </a>
+        {% endif %}
+    </div>
+</footer>
+
+<!-- Mobile Footer END -->
