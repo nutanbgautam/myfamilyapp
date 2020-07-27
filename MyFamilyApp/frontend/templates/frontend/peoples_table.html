@@ -45,16 +45,23 @@
 							<tr>
 								<td class="column1">{{person.id}}</td>
 								<td class="column2">
+									{% if person.gender == 'M' %}
+									<i class="fa fa-male" style="font-size:20px;color:rgb(41, 111, 240)"></i>
+									{% else %}
+									<i class="fa fa-female" style="font-size:20px;color:rgb(243, 130, 149)"></i>
+									{% endif %}
 									<a href="{{person.get_absolute_url}}">
 									{{person}}
 									</a>
 								</td>
 								<td class="column3">{{person.batch_no}}</td>
 								<td class="column4">
-									{% if person.gender == 'M' %}
-									<i class="fa fa-female" style="font-size:20px;color:rgb(41, 111, 240)"></i>
-									{% else %}
-									<i class="fa fa-male" style="font-size:20px;color:rgb(243, 130, 149)"></i>
+									{% if person.spouse %}
+										{% if person.gender == 'M' %}
+										<i class="fa fa-female" style="font-size:20px;color:rgb(41, 111, 240)"></i>
+										{% else %}
+										<i class="fa fa-male" style="font-size:20px;color:rgb(243, 130, 149)"></i>
+										{% endif %}									
 									{% endif %}
 									{{person.spouses}}
 								</td>
@@ -72,6 +79,8 @@
 										</a>
 										<br>
 										{% endfor %}
+									{% else %}
+									<div>No Childrens</div>
 									{% endif %}
 								</td>
 								<td class="column6">

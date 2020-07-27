@@ -9,7 +9,6 @@ from MyFamilyApp.backend.views import *
 app_name="backend"
 
 urlpatterns = [
-    path('dashboard/',DashboardView.as_view(),name="dashboard"),
     path('person/create',PersonCreateView.as_view(),name="create_person"),
     path('person/edit/<pk>',PersonEditView.as_view(),name="edit_person"),
     path('person/delete/<pk>',PersonDeleteView.as_view(),name="delete_person"),

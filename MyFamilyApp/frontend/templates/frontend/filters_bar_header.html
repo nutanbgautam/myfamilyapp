@@ -7,11 +7,19 @@
 
 {% block header_content %}
 
-<form class="form-inline" action="{% url 'frontend:search_person' %}">
+<form class="form-inline" action="{% url 'frontend:search_person' %}" method="POST">
+    {% csrf_token %}
     <div class="input-group">                    
-        <input type="text" class="form-control" placeholder="Search">
+        <input type="text" class="form-control" name="givenTerm" placeholder="Search">
         <div class="input-group-append">
-            <button type="button" class="btn btn-secondary"><i class="fa fa-search"></i></button>
+            <button type="submit" class="btn btn-secondary"><i class="fa fa-search"></i></button>
+        </div>
+        <div>
+            <select name="searchBy" id="searchOptions">
+                <option value="name">नाम</option>
+                <option value="serial_number">क्र.सं.</option>
+                <option value="batch_no">पुस्ता नं.	</option>
+            </select>
         </div>
     </div>
 </form>

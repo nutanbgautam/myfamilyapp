@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.views.generic import *
 from MyFamilyApp.backend.models import Person,Suggestions
@@ -24,12 +24,40 @@ class PersonListView(ListView):
     context_object_name = 'persons'
     paginate_by         = 20
 
+    def post(self,*args,**kwargs):
+        for a,b in kwargs.items():
+            print(b)
+
 class PersonDetailView(DetailView):
 	model 				= Person
 	template_name       = person_detail_template
 
 class SearchView(View):
-	pass
+	def post(self,request,*args,**kwargs):
+		foundPersons=[]
+		givenTerm=request.POST.get('givenTerm')
+		searchBy=request.POST.get('searchBy')
+		if searchBy=='serial_number':
+			'''Search By Serial Number'''
+			try:
+				givenSN=int(givenTerm)
+				a=Person.objects.filter(person_id=givenSN)
+				foundPersons=[person for person in a]
+			except:pass
+		elif searchBy=='name':
+			'''Search By Name'''
+			try:
+				import nepali_roman as nr
+				foundPersons=[person for person in Person.objects.all() if givenTerm.lower() in nr.romanize_text(person.full_name).lower()]
+			except:pass
+		elif searchBy=='batch_no':
+			'''Search By batch no'''
+			try:
+				givenBatchNo=int(givenTerm)
+				foundPersons=[person for person in Person.objects.filter(batch_no=givenBatchNo)]
+			except:pass
+		else:pass
+		return render(request,peoples_table_template,{"persons":foundPersons})
 
 class SuggestionCreateView(CreateView):
 	model 				= Suggestions

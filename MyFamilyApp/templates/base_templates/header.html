@@ -40,14 +40,14 @@ display:none;
 
 <header>
 <!-- Page Toogle (Topbar) -->
-{% if request.path == '/app/dashboard/' %}
+{% if request.path == '/dashboard/' %}
 <a href="{% url 'frontend:peoples_table' %}" class="tootle-button">
     <button id="sidebarToggleTop" class="btn btn-link  rounded-circle mr-3">
         <i class="material-icons">view_list</i>
     </button>
 </a>
 {% else %}
-<a href="{% url 'backend:dashboard' %}" class="tootle-button">
+<a href="{% url 'frontend:dashboard' %}" class="tootle-button">
     <button id="sidebarToggleTop" class="btn btn-link  rounded-circle mr-3">
         <i class="material-icons">dashboard</i>
     </button>

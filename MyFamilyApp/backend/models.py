@@ -29,14 +29,15 @@ class Person(models.Model):
     children        = PickledObjectField(blank=True,null=True)
 
     #Contact Information
-    contact_number  = models.CharField(max_length=15,null=True)
-    email           = models.CharField(max_length=100,null=True)
-    address         = models.CharField(max_length=100,null=True)
+    contact_number  = models.CharField(max_length=15,blank=True,null=True)
+    email           = models.CharField(max_length=100,blank=True,null=True)
+    address         = models.CharField(max_length=100,blank=True,null=True)
 
     #Data Detail
     created_on      = models.DateTimeField(auto_now_add=True)
     last_edited_on  = models.DateTimeField(auto_now=True)
     last_edited_by  = models.ForeignKey(User,on_delete=models.DO_NOTHING,default=1)
+
 
     def __str__(self):
         return self.full_name
@@ -44,25 +45,29 @@ class Person(models.Model):
     def __unicode__(self):
         return self.full_name
 
-    def get_romanized_name(self):
-        try:
-            import nepali_roman as nr
-            return nr.romanized_text(self.full_name)
-        except:pass
+    # def get_romanized_name(self):
+    #     print("AM HERE")
+    #     try:
+    #         import nepali_roman as nr
+    #         print(self.full_name)
+    #         self.full_name=nr.romanized_text(self.full_name)
+    #         print(nr.romanize_text(self.full_name))
+    #         return nr.romanize_text(self.full_name)
+    #     except:print("HERE EXCEPTED")
 
-    def is_alive(self):
-        if self.death=="Alive":
-            return True
-        return False
+    # def is_alive(self):
+    #     if self.death=="Alive":
+    #         return True
+    #     return False
 
-    def is_married(self):
-        if self.spouses=="No Spouse" and self.children==None:
-            return False
-        return True
+    # def is_married(self):
+    #     if self.spouses=="No Spouse" and self.children==None:
+    #         return False
+    #     return True
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse(f'/person/{self.id}')
+        return reverse('frontend:person_detail',kwargs={'pk':self.id})
 
     def get_children(self):
         children_ids=[child_id for child_id in self.children]
