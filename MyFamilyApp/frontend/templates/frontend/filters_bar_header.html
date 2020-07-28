@@ -3,6 +3,24 @@
 {% block header_css %}
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<style>
+    nav.pagination-nav{
+        margin-left: auto;
+    }
+
+    .pagination{
+        margin:0px;
+    }
+    
+    @media (max-width: 1025px) {
+        nav.pagination-nav{
+        display: none;
+        }
+    }
+</style>
 {% endblock header_css %}
 
 {% block header_content %}
@@ -10,20 +28,59 @@
 <form class="form-inline" action="{% url 'frontend:search_person' %}" method="POST">
     {% csrf_token %}
     <div class="input-group">                    
-        <input type="text" class="form-control" name="givenTerm" placeholder="Search">
+        <input type="text" class="form-control" name="givenTerm" placeholder="Search" autocomplete="off">
         <div class="input-group-append">
             <button type="submit" class="btn btn-secondary"><i class="fa fa-search"></i></button>
         </div>
-        <div>
-            <select name="searchBy" id="searchOptions">
-                <option value="name">नाम</option>
+        <div id="searchOptions">
+            <select name="searchBy" class="custom-select" id="searchOptions">
+                <option value="name" selected>नाम</option>
                 <option value="serial_number">क्र.सं.</option>
                 <option value="batch_no">पुस्ता नं.	</option>
+                <option value="phone_number">Phone Number</option>
             </select>
         </div>
     </div>
 </form>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <nav aria-label="..." class="pagination-nav">
+        <ul class="pagination">
+            <li class="page-item">
+                <span class="page-link">{% if page_obj.has_previous %}
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Previous</a>
+                </span>
+            </li>
+            <li class="page-item"><a class="page-link"
+                    href="{{ request.path }}?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+            </li>
+
+            {%else%}|</span> {% endif %}<li class="page-item active">
+                <span class="page-link">
+                    {{ page_obj.number }}
+                    <span class="sr-only">(current)</span>
+                </span>
+            </li>{% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link"
+                    href="{{ request.path }}?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+            </li>
+            <li class="page-item">
+                <span class="page-link">
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">Next</a> </span>
+                {%else%}|</span> {% endif %}
+            </li>
+        </ul>
+    </nav>
+    {% endif %}
+    <!-- Pagination  END-->
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>{% endblock header_content %}
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% endblock header_content %}
 

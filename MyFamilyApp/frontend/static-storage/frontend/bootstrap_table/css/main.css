@@ -175,6 +175,7 @@ table td.r, table th.r {
   color: #fff;
   line-height: 1.2;
   font-weight: unset;
+  text-align: center;
 }
 
 tbody tr:nth-child(even) {
@@ -196,34 +197,46 @@ tbody tr:hover {
 }
 
 .column1 {
-  width: 260px;
+  width: 5%;
   padding-left: 40px;
+  text-align: center;
+}
+
+tbody .column2{
+  text-align: left !important;
+  padding-left: 4%;
 }
 
 .column2 {
-  width: 160px;
+  width: 20%;
+  text-align: center;
 }
 
 .column3 {
-  width: 245px;
+  width: 5%;
+  text-align: center;
 }
 
 .column4 {
-  width: 110px;
-  text-align: right;
+  width: 20%;
+  text-align: center;
 }
 
 .column5 {
-  width: 170px;
-  text-align: right;
+  width: 10%;
+  text-align: left;
 }
 
 .column6 {
-  width: 222px;
-  text-align: right;
-  padding-right: 62px;
+  width: 10%;
+  text-align: center;
 }
 
+.column7 {
+  width: 10%;
+  text-align: center;
+  padding-right: 62px;
+}
 
 @media screen and (max-width: 992px) {
   table {
@@ -253,7 +266,7 @@ tbody tr:hover {
     line-height: 1.2;
     font-weight: unset;
     position: absolute;
-    width: 40%;
+    /* width: 40%; */
     left: 30px;
     top: 0;
   }
@@ -279,12 +292,13 @@ tbody tr:hover {
     content: "हजुरबुबा";
   }
 
-  .column4,
+  /* .column4,
   .column5,
   .column6 {
     text-align: left;
-  }
+  } */
 
+  .column7
   .column4,
   .column5,
   .column6,
@@ -292,6 +306,7 @@ tbody tr:hover {
   .column2,
   .column3 {
     width: 100%;
+    text-align: left;
   }
 
   tbody tr {

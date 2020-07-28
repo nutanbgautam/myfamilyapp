@@ -43,7 +43,7 @@
 					<tbody>
 						{% for person in persons %}
 							<tr>
-								<td class="column1">{{person.id}}</td>
+								<td class="column1">{{person.person_id}}</td>
 								<td class="column2">
 									{% if person.gender == 'M' %}
 									<i class="fa fa-male" style="font-size:20px;color:rgb(41, 111, 240)"></i>
@@ -54,7 +54,11 @@
 									{{person}}
 									</a>
 								</td>
-								<td class="column3">{{person.batch_no}}</td>
+								<td class="column3">
+									<a href="{% url 'frontend:search_person' %}?givenTerm={{person.batch_no}}&&searchBy=batch_no">
+									{{person.batch_no}}
+									</a>
+								</td>
 								<td class="column4">
 									{% if person.spouse %}
 										{% if person.gender == 'M' %}
@@ -80,18 +84,36 @@
 										<br>
 										{% endfor %}
 									{% else %}
-									<div>No Childrens</div>
+									<div>No Children</div>
 									{% endif %}
 								</td>
 								<td class="column6">
-									<a href="{{person.father.get_absolute_url}}">
-									{{person.father}}
+									{%if person.father.full_name%}
+									{{person.father.full_name}}
+									<a href="{% url 'frontend:search_person' %}?givenTerm={{person.father.person_id}}&&searchBy=serial_number">
+										<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor"
+											xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd"
+												d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+										</svg>
 									</a>
+									{%else%}
+									<span></span>
+									{%endif%}
 								</td>
 								<td class="column7">
-									<a href="{{person.father.father.get_absolute_url}}">
-									{{person.father.father}}
+									{%if person.father.father.full_name%}
+									{{person.father.father.full_name}}
+									<a href="{% url 'frontend:search_person' %}?givenTerm={{person.father.father.person_id}}&&searchBy=serial_number">
+										<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor"
+											xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd"
+												d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+										</svg>
 									</a>
+									{%else%}
+									<span></span>
+									{%endif%}
 								</td>
 							</tr>
 

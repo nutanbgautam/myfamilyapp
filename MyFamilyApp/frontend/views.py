@@ -24,15 +24,32 @@ class PersonListView(ListView):
     context_object_name = 'persons'
     paginate_by         = 20
 
-    def post(self,*args,**kwargs):
-        for a,b in kwargs.items():
-            print(b)
-
 class PersonDetailView(DetailView):
 	model 				= Person
 	template_name       = person_detail_template
 
 class SearchView(View):
+	'''Filter data according to given parameters'''
+	def get(self,request,*args,**kwargs):
+		foundPersons=[]
+		givenTerm=request.GET.get('givenTerm')
+		searchBy=request.GET.get('searchBy')
+		if searchBy=='serial_number':
+			'''Search By Serial Number'''
+			try:
+				givenSN=int(givenTerm)
+				a=Person.objects.filter(person_id=givenSN)
+				foundPersons=[person for person in a]
+			except:pass
+		elif searchBy=='batch_no':
+			'''Search By batch no'''
+			try:
+				givenBatchNo=int(givenTerm)
+				foundPersons=[person for person in Person.objects.filter(batch_no=givenBatchNo)]
+			except:pass
+		else:pass
+		return render(request,peoples_table_template,{"persons":foundPersons})
+
 	def post(self,request,*args,**kwargs):
 		foundPersons=[]
 		givenTerm=request.POST.get('givenTerm')
@@ -55,6 +72,11 @@ class SearchView(View):
 			try:
 				givenBatchNo=int(givenTerm)
 				foundPersons=[person for person in Person.objects.filter(batch_no=givenBatchNo)]
+			except:pass
+		elif searchBy=='phone_number':
+			'''Search By phone_number'''
+			try:
+				foundPersons=[person for person in Person.objects.all() if givenTerm in person.contact_number]
 			except:pass
 		else:pass
 		return render(request,peoples_table_template,{"persons":foundPersons})
