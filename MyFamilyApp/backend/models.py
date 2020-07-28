@@ -45,26 +45,6 @@ class Person(models.Model):
     def __unicode__(self):
         return self.full_name
 
-    # def get_romanized_name(self):
-    #     print("AM HERE")
-    #     try:
-    #         import nepali_roman as nr
-    #         print(self.full_name)
-    #         self.full_name=nr.romanized_text(self.full_name)
-    #         print(nr.romanize_text(self.full_name))
-    #         return nr.romanize_text(self.full_name)
-    #     except:print("HERE EXCEPTED")
-
-    # def is_alive(self):
-    #     if self.death=="Alive":
-    #         return True
-    #     return False
-
-    # def is_married(self):
-    #     if self.spouses=="No Spouse" and self.children==None:
-    #         return False
-    #     return True
-
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse('frontend:person_detail',kwargs={'pk':self.id})
