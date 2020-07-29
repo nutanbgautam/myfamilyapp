@@ -78,13 +78,6 @@ class SearchView(View):
 			try:
 				foundPersons=[person for person in Person.objects.all() if givenTerm in person.contact_number]
 			except:pass
-		elif searchBy=='father':
-			'''Search By Father Name'''
-			try:
-				import nepali_roman as nr
-				foundPersons=[person for person in Person.objects.all() if person.father!=None]
-				foundPersons=[person for person in foundPersons if givenTerm.lower() in nr.romanize_text(person.father.full_name).lower()]
-			except:pass
 		elif searchBy=='grandfather':
 			'''Search By Grandfather Name'''
 			try:

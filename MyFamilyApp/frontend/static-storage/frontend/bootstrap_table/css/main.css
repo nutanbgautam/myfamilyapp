@@ -251,6 +251,7 @@ tbody .column2{
   table tbody tr {
     height: auto;
     padding: 37px 0;
+    border-bottom: #304a3c 2px solid; 
   }
   table tbody tr td {
     padding-left: 40% !important;
