@@ -14,5 +14,6 @@ urlpatterns = [
     path('person/delete/<pk>',PersonDeleteView.as_view(),name="delete_person"),
     path('suggestions/',SuggestionsListView.as_view(),name="suggestion_notifications"),
     path('suggestions/<pk>',SuggestionDetailView.as_view(),name="suggestion_detail"),
-    path('profile/',UserProfileView.as_view(),name="user_profile")
+    path('profile/',UserProfileView.as_view(),name="user_profile"),
+    path('load/',load_data_test)
 ]

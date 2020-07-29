@@ -21,6 +21,7 @@ class Person(models.Model):
     death           = models.CharField(max_length=11,blank=True,default="Alive")
     same_vamsha     = models.BooleanField(default=True)
     batch_no        = models.IntegerField(blank=True,default=0,verbose_name="Pusta Number")
+    profession      = models.CharField(max_length=50,blank=True,null=True)
 
     #Relations Information
     spouses         = models.CharField(max_length=200,default="No Spouse")
@@ -32,6 +33,8 @@ class Person(models.Model):
     contact_number  = models.CharField(max_length=15,blank=True,null=True)
     email           = models.CharField(max_length=100,blank=True,null=True)
     address         = models.CharField(max_length=100,blank=True,null=True)
+
+    remarks         = models.CharField(max_length=1000,blank=True,null=True)
 
     #Data Detail
     created_on      = models.DateTimeField(auto_now_add=True)
