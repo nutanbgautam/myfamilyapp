@@ -44,6 +44,5 @@ class UserProfileView(View):
 	template_name       = user_profile_template
 
 def load_data_test(request):
-	from MyFamilyApp.backend.data_processing_functions import old_methods as load_function
-	load_function()
+	from MyFamilyApp.backend.data_processing_functions import old_methods 
 	return redirect("/")

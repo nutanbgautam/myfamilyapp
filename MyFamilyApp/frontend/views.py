@@ -65,7 +65,7 @@ class SearchView(View):
 			'''Search By Name'''
 			try:
 				import nepali_roman as nr
-				foundPersons=[person for person in Person.objects.all() if givenTerm.lower() in nr.romanize_text(person.full_name).lower()]
+				foundPersons=[person for person in Person.objects.all() if nr.romanize_text(givenTerm).lower() in nr.romanize_text(person.full_name).lower()]
 			except:pass
 		elif searchBy=='batch_no':
 			'''Search By batch no'''

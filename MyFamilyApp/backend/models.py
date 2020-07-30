@@ -34,12 +34,14 @@ class Person(models.Model):
     email           = models.CharField(max_length=100,blank=True,null=True)
     address         = models.CharField(max_length=100,blank=True,null=True)
 
+    #Additional Information
     remarks         = models.CharField(max_length=1000,blank=True,null=True)
 
     #Data Detail
     created_on      = models.DateTimeField(auto_now_add=True)
     last_edited_on  = models.DateTimeField(auto_now=True)
     last_edited_by  = models.ForeignKey(User,on_delete=models.DO_NOTHING,default=1)
+
 
 
     def __str__(self):
@@ -90,13 +92,14 @@ class Person(models.Model):
             if self.father:
                 self.batch_no=self.father.batch_no+1 if self.father.batch_no else 1
                 max_person_id=Person.objects.all().aggregate(Max('person_id'))['person_id__max']
-                self.person_id=max_person_id+1 if max_person_id>0 else 1
+                self.person_id=max_person_id if max_person_id>0 else 0
                 self.same_vamsha=True
                 super(Person,self).save()
                 parent=self.father
             elif self.mother:
                 self.person_id=0
                 parent=self.mother
+            else:pass
 
             '''Update the father -> children field with self id'''
             try:
@@ -106,7 +109,7 @@ class Person(models.Model):
                 })
                 parent.children=parent_children
                 parent.save("childUpdateOnly")
-            except Exception as e:print(e)
+            except Exception as e:pass
 
 
 class Suggestions(models.Model):

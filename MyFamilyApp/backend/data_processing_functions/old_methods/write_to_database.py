@@ -1,4 +1,5 @@
 from MyFamilyApp.backend.models import Person
+import re
 
 unicode_to_digits_dic={
     'DIGIT ZERO':0,
@@ -90,12 +91,12 @@ def write_to_database(givenData):
                 except Exception as e: pass
         except Exception as e: pass
 
-        # print(f"Processed {count} datas out of {len(givenData)} items")
+        print(f"Processed {count} datas out of {len(givenData)} items")
         count+=1
 
 #Function to convert unicode to unicodename (for eg: 1 will be ['DIGIT ONE] and a will be ['SMALL LETTER A'])
 def unicode_to_name(given_data=[],numberdataTrigger=0):
-    import unicodedata,re
+    import unicodedata
     final_data=[]
     try:
         data_with_DEVANAGARI=[unicodedata.name(result) for result in given_data]
@@ -109,7 +110,6 @@ def unicode_to_name(given_data=[],numberdataTrigger=0):
                 data_name_with_removed_DEVANAGARI=[re.sub(symbol,"",result) for result in data_name_with_removed_DEVANAGARI]
             final_data=data_name_with_removed_DEVANAGARI[::]
     except Exception as e:
-        print("excepted")
         final_data=[unicodedata.name(result) for result in given_data]
     return final_data
 
@@ -139,7 +139,7 @@ def create_daughther_children(mother,childrens):
                     a_child.comment="Gautam Batch End"
                     a_child.save()
                     haveChild=True
-                except Exception as e:print(e);print(e.__class__)
+                except Exception as e:pass
         except:pass
 
     return haveChild
