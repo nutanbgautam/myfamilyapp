@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.views.generic import *
-from MyFamilyApp.backend.models import Person,Suggestions
+from MyFamilyApp.backend.models import Person
 
 app_name="frontend"
 
@@ -17,6 +17,7 @@ suggestion_create_template='frontend/create_suggestion.html'
 class DashboardView(TemplateView):
 	template_name		= dashboard_template
 
+
 class PersonListView(ListView):
     model               = Person
     queryset            = Person.objects.filter(same_vamsha=True)
@@ -24,9 +25,16 @@ class PersonListView(ListView):
     context_object_name = 'persons'
     paginate_by         = 20
 
+
 class PersonDetailView(DetailView):
 	model 				= Person
 	template_name       = person_detail_template
+
+
+class SuggestionCreateView(CreateView):
+	model 				= Person
+	template_name		= suggestion_create_template
+
 
 class SearchView(View):
 	'''Filter data according to given parameters'''
@@ -92,9 +100,6 @@ class SearchView(View):
 
 		return render(request,peoples_table_template,{"persons":foundPersons})
 
-class SuggestionCreateView(CreateView):
-	model 				= Suggestions
-	template_name		= suggestion_create_template
 
 
 

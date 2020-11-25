@@ -27,19 +27,19 @@
 
 <form class="form-inline" action="{% url 'frontend:search_person' %}" method="POST">
     {% csrf_token %}
+    <div id="searchOptions">
+        <select name="searchBy" class="custom-select" id="searchOptions">
+            <option value="name" selected>नाम</option>
+            <option value="serial_number">क्र.सं.</option>
+            <option value="batch_no">पुस्ता नं.</option>
+            <option value="phone_number">Phone</option>
+            <option value="grandfather">हजुरबुबा</option>
+        </select>
+    </div>
     <div class="input-group">                    
-        <input type="text" class="form-control" name="givenTerm" placeholder="Search" autocomplete="off">
+        <input type="text" class="form-control" name="givenTerm" placeholder="खोज" autocomplete="off">
         <div class="input-group-append">
             <button type="submit" class="btn btn-secondary"><i class="fa fa-search"></i></button>
-        </div>
-        <div id="searchOptions">
-            <select name="searchBy" class="custom-select" id="searchOptions">
-                <option value="name" selected>नाम</option>
-                <option value="serial_number">क्र.सं.</option>
-                <option value="batch_no">पुस्ता नं.</option>
-                <option value="phone_number">Phone Number</option>
-                <option value="grandfather">हजुरबुबा</option>
-            </select>
         </div>
     </div>
 </form>

@@ -42,6 +42,8 @@ class Person(models.Model):
     last_edited_on  = models.DateTimeField(auto_now=True)
     last_edited_by  = models.ForeignKey(User,on_delete=models.DO_NOTHING,default=1)
 
+    #Suggestions
+    suggestions     = PickledObjectField(blank=True,null=True)
 
 
     def __str__(self):
@@ -85,16 +87,18 @@ class Person(models.Model):
 
     def save(self,*args,**kwargs):
         childUpdateOnly=False
+        suggestionUpdateOnly=False
         if "childUpdateOnly" in args: childUpdateOnly=True
+        if "suggestionUpdateOnly" in args: suggestionUpdateOnly=True
         super(Person,self).save()
         
-        if(not childUpdateOnly):
+        if(not childUpdateOnly and not suggestionUpdateOnly):
             if self.father:
                 self.batch_no=self.father.batch_no+1 if self.father.batch_no else 1
                 max_person_id=Person.objects.all().aggregate(Max('person_id'))['person_id__max']
                 self.person_id=max_person_id if max_person_id>0 else 0
                 self.same_vamsha=True
-                super(Person,self).save()
+                super(Person,self).save(update_fields=["batch_no","person_id","same_vamsha"])
                 parent=self.father
             elif self.mother:
                 self.person_id=0
@@ -108,9 +112,24 @@ class Person(models.Model):
                     self.id:self.full_name
                 })
                 parent.children=parent_children
-                parent.save("childUpdateOnly")
+                parent.save("childUpdateOnly",update_fields=["children"])
             except Exception as e:pass
 
+        if(suggestionUpdateOnly):
+            suggestion=None
+            person_suggestions=self.suggestions if self.suggestions else {}
+            print("I am here")
+            for key,value in kwargs.items():
+                if key=="suggestion":
+                    suggestion=value
+            if(suggestion):
+                person_suggestions.update({
+                    suggestion['suggester_name']:{
+                        0:suggestion
+                    }
+                })
+                self.suggestions=person_suggestions
+                super(Person,self).save(update_fields=["suggestions"])
+                print("Saved")
+            else:pass
 
-class Suggestions(models.Model):
-    pass

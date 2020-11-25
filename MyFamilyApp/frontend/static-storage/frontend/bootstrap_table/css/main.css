@@ -238,7 +238,7 @@ tbody .column2{
   padding-right: 62px;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 767px) {
   table {
     display: block;
   }

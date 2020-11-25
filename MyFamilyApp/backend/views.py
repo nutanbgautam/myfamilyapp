@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import *
-from MyFamilyApp.backend.models import Person,Suggestions
+from MyFamilyApp.backend.models import Person
 
 app_name="backend"
 
@@ -33,11 +33,11 @@ class PersonDeleteView(DeleteView):
 '''Person Manipulation Views END'''
 
 class SuggestionsListView(ListView):
-	model 				= Suggestions
+	model 				= Person
 	template_name       = suggestions_table_template
 
 class SuggestionDetailView(DetailView):
-	model 				= Suggestions
+	model 				= Person
 	template_name       = suggestion_detail_template
 
 class UserProfileView(View):
