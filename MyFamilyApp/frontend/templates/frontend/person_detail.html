@@ -225,6 +225,10 @@
 					  </div>
 					  
 					{% endfor %}
+					{% else %}
+					<div>
+						No Children
+					</div>
 					{% endif %}
 				</div><!-- /#children -->
 
@@ -257,6 +261,11 @@
 					  </div>
 					  {%endif%}
 					{% endfor %}
+
+					{% else %}
+					<div>
+						No Siblings
+					</div>
 					{% endif %}
 				</div><!-- /#siblings -->
 			</div>

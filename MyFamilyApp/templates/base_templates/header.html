@@ -40,7 +40,7 @@ display:none;
 
 <header>
 <!-- Page Toogle (Topbar) -->
-{% if request.path == '/dashboard/' %}
+<!-- {% if request.path == '/dashboard/' %}
 <a href="{% url 'frontend:peoples_table' %}" class="tootle-button">
     <button id="sidebarToggleTop" class="btn btn-link  rounded-circle mr-3">
         <i class="material-icons">view_list</i>
@@ -52,7 +52,10 @@ display:none;
         <i class="material-icons">dashboard</i>
     </button>
 </a>
-{% endif %}
+{% endif %} -->
+<button id="sidebarToggleTop" class="btn btn-link  rounded-circle mr-3">
+    <i class="material-icons">view_list</i>
+</button>
 <!-- Page Toogle (Topbar) END -->
 
 <!-- Header Content -->

@@ -24,6 +24,7 @@ class PersonListView(ListView):
     queryset            = Person.objects.filter(same_vamsha=True)
     template_name       = peoples_table_template
     context_object_name = 'persons'
+    ordering            = ['person_id']
     paginate_by         = 20
 
 
