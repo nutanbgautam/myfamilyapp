@@ -34,9 +34,6 @@ def write_to_database(givenData):
                     isFemale=True
                 spouses=value['spouses'][0]
                 person.spouses=spouses
-                batch_no=[str(unicode_to_digits_dic[digit]) for digit in unicode_to_name(given_data=value['batch_no'],numberdataTrigger=1)]
-                batch_no=int("".join(batch_no))
-                person.batch_no=batch_no
                 
                 try:
                     father_pk=[str(unicode_to_digits_dic[digit]) for digit in unicode_to_name(given_data=value['father_pk'],numberdataTrigger=1)]
@@ -54,7 +51,7 @@ def write_to_database(givenData):
                     if(not(haveChild)):
                         person.remarks="No Child"
                     person.save()
-            except Exception as e: print(e);print(e.__class__)
+            except Exception as e: print(e);print(e.__class__);print(person.full_name);print(person.person_id);print("\n----------\n")
 
         try:
             if((Person.objects.get(person_id=person_id))):
@@ -121,7 +118,7 @@ def create_daughther_children(mother,childrens):
             a_child=Person(same_vamsha=False,person_id=0)
             if(not(child['name']=='' or child['name']==None) and not(child['gender']=='' or child['gender']==None)):                
                 try:
-                    a_child.name=child['name']
+                    a_child.full_name=child['name']
                     if child['gender'] == "Male":
                         a_child.gender="M"
                     else:
@@ -136,7 +133,7 @@ def create_daughther_children(mother,childrens):
                             a_child.secondary_contact_number=ChildFilteredContactNumbers[1][0]
                         else:
                             pass                                                    
-                    a_child.comment="Gautam Batch End"
+                    a_child.remarks="Gautam Batch End"
                     a_child.save()
                     haveChild=True
                 except Exception as e:pass

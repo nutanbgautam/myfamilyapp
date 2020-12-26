@@ -1,0 +1,62 @@
+<li>
+    <a href="javascript:void(0);">
+      <div class="member-view-box">
+        <div class="member-image">
+          {%if person.gender == "M"%}
+          <img
+            src="https://image.flaticon.com/icons/svg/145/145867.svg"
+            alt="Member"
+          />
+          {%else%}
+          <img
+          src="https://www.flaticon.com/svg/static/icons/svg/3233/3233486.svg"
+          alt="Member"
+        />
+          {%endif%}
+          <div class="member-details">
+            <h3>{{person.full_name}}</a></h3>
+          </div>
+        </div>
+      </div>
+    </a>
+    {%if person.children%}
+    <ul>
+        {%if person.gender == "M" %}
+                {% for child_obj in person.get_descendants %}
+                    {%if '.' not in child_obj.full_name %}
+                        {%with i=0 %}
+
+                            {% include 'frontend/person_tree/person_child.html' with person=child_obj i=i %}
+
+                        {%endwith%}
+                    {%endif%}
+                {% endfor %}
+            {%else%}
+                {% for child in person.get_children %}
+                    <li class="primary-santan"> 
+                        <a href="javascript:void(0);">
+                          <div class="member-view-box">
+                            <div class="member-image">
+                              {%if child.gender == "M"%}
+                              <img
+                                src="https://image.flaticon.com/icons/svg/145/145867.svg"
+                                alt="Member"
+                              />
+                              {%else%}
+                              <img
+                              src="https://www.flaticon.com/svg/static/icons/svg/3233/3233486.svg"
+                              alt="Member"
+                            />
+                              {%endif%}
+                              <div class="member-details">
+                                <h3>{{child.full_name}}</a></h3>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                    </li>
+                {% endfor %}
+            {%endif%}
+    </ul>
+    {%endif%}
+</li>

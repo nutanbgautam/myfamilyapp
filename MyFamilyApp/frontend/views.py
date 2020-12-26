@@ -10,6 +10,7 @@ app_name="frontend"
 dashboard_template='frontend/dashboard.html'
 peoples_table_template='frontend/peoples_table.html'
 person_detail_template='frontend/person_detail.html'
+person_tree_template='frontend/person_tree/person_tree.html'
 suggestion_create_template='frontend/create_suggestion.html'
 
 '''Templates END'''
@@ -30,10 +31,16 @@ class PersonDetailView(DetailView):
 	model 				= Person
 	template_name       = person_detail_template
 
+class PersonTreeView(View):
+	def get(self,request,*args,**kwargs):
+		personID=request.GET.get('id')
+		primaryPerson=Person.objects.get(id=personID)
+		return render(request,person_tree_template,{"person":primaryPerson})
 
-class SuggestionCreateView(CreateView):
+class SuggestionCreateView(View):
 	model 				= Person
 	template_name		= suggestion_create_template
+	fields				= '__all__'
 
 
 class SearchView(View):

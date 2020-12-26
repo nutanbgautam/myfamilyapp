@@ -1,0 +1,6 @@
+
+{%if 10 > i%}
+{% include 'frontend/person_tree/ancestors.html' with person=person.father i=i|add:"1" %}
+<a href="tree?personID={person.father.person_id}">{{person.father.name}}</a><ul>
+<li>
+{%endif%}

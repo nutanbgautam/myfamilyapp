@@ -1,0 +1,266 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{person.full_name}} Detail</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="{% static 'frontend/css/person_detail.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+    <div id="user-profile-2" class="user-profile">
+		<div class="tabbable">
+			<ul class="nav nav-tabs padding-18">
+				<li class="active">
+					<a role="tab" data-toggle="tab" href="#personDetail">
+						<i class="green ace-icon fa fa-user bigger-120"></i>
+						Personal Detail
+					</a>
+				</li>
+
+				<li>
+					<a role="tab" data-toggle="tab" href="#children">
+						<i class="orange ace-icon fa fa-child bigger-120"></i>
+						Children
+					</a>
+				</li>
+
+				<li>
+					<a role="tab" data-toggle="tab" href="#siblings">
+						<i class="blue ace-icon fa fa-users bigger-120"></i>
+						Siblings
+					</a>
+				</li>
+
+			</ul>
+
+			<div class="tab-content no-border padding-24">
+				<div role="tabpanel" class="tab-pane in active" id="personDetail">
+					<div class="row">
+						<div class="col-xs-12 col-sm-3 center">
+							<span class="profile-picture">
+								<img class="editable img-responsive" alt="{{person.full_name}} image" id="avatar2" src="{{person.photo.url}}">
+							</span>
+
+							<div class="space space-4"></div>
+
+								{% if user.is_authenticated %}
+								<a href="/app/person/edit/{{person.id}}" class="btn btn-sm btn-block btn-primary">
+								<i class="far fa-edit bigger-110"></i>
+								<span class="bigger-110">Edit</span>
+								</a>
+								{% else %}
+								<a href="/suggest/{{person.id}}" class="btn btn-sm btn-block btn-primary">
+								<i class="ace-icon fa fa-envelope-o bigger-110"></i>
+								<span class="bigger-110">Suggest Edit</span>
+								</a>
+								{% endif %}
+							
+						</div><!-- /.col -->
+
+						<div class="col-xs-12 col-sm-9">
+
+
+							<div class="profile-user-info">
+								<div class="profile-info-row">
+									<div class="profile-info-name"> नाम </div>
+
+									<div class="profile-info-value">
+										<span>{{person.full_name}}</span>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name"> पुस्ता नं.  </div>
+
+									<div class="profile-info-value">
+                                        {{person.batch_no}}
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name"> Gender </div>
+
+									<div class="profile-info-value">
+										<span>
+											{% if person.gender == "M" %}
+												Male
+											{% else %}
+												Female
+											{% endif %}
+										</span>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name"> जीवनसाथी </div>
+
+									<div class="profile-info-value">
+										<span>
+											{% if person.spouses|length == 0 %}
+											No Spouse
+											{% else %}
+											{{person.spouses}}
+											{% endif %}
+										</span>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name"> बुबा </div>
+
+									<div class="profile-info-value">
+										<span>{{person.father.full_name}}</span>
+									</div>
+                                </div>
+								<div class="profile-info-row">
+									<div class="profile-info-name"> हजुरबुबा      </div>
+
+									<div class="profile-info-value">
+										<span>{{person.father.father.full_name}}</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="hr hr-8 dotted"></div>
+
+							<div class="profile-user-info">
+								<div class="profile-info-row">
+									<div class="profile-info-name"> Family Tree </div>
+
+									<div class="profile-info-value">
+										<a href="/tree?id={{person.id}}" target="_blank">View</a>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name">
+										<i class="middle ace-icon fa fa-facebook-square bigger-150 blue"></i>
+									</div>
+
+									<div class="profile-info-value">
+										<a href="#">Find me on Facebook</a>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name">
+										<i class="middle ace-icon fa fa-twitter-square bigger-150 light-blue"></i>
+									</div>
+
+									<div class="profile-info-value">
+										<a href="#">Follow me on Twitter</a>
+									</div>
+								</div>
+							</div>
+						</div><!-- /.col -->
+					</div><!-- /.row -->
+
+					<div class="space-20"></div>
+
+					<!-- <div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="widget-box transparent">
+								<div class="widget-header widget-header-small">
+									<h4 class="widget-title smaller">
+										<i class="ace-icon fa fa-check-square-o bigger-110"></i>
+										Little About Me
+									</h4>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main">
+										<p>
+											My job is mostly lorem ipsuming and dolor sit ameting as long as consectetur adipiscing elit.
+										</p>
+										<p>
+											Sometimes quisque commodo massa gets in the way and sed ipsum porttitor facilisis.
+										</p>
+										<p>
+											The best thing about my job is that vestibulum id ligula porta felis euismod and nullam quis risus eget urna mollis ornare.
+										</p>
+										<p>
+											Thanks for visiting my profile.
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> -->
+				</div><!-- /#personDetail -->
+
+				<div role="tabpanel" class="tab-pane" id="children">
+					{% if person.get_children|length > 0 %}
+					{% for children in person.get_children %}
+					<div class="profile-users clearfix">
+						<div class="itemdiv memberdiv">
+						  <div class="inline pos-rel">
+							<div class="user">
+							  <a href="{{children.get_absolute_url}}">
+								<img
+								  src="{{children.photo.url}}"
+								  alt="{{children.full_name}} photo"
+								/>
+							  </a>
+							</div>
+					  
+							<div class="body">
+							  <div class="name">
+								<a href="{{children.get_absolute_url}}">
+								  <!-- <span class="user-status status-online"></span> -->
+								  {{children.full_name}}
+								</a>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					  
+					{% endfor %}
+					{% endif %}
+				</div><!-- /#children -->
+
+				<div role="tabpanel" id="siblings" class="tab-pane">
+					{% if person.get_siblings|length > 0 %}
+					{% for sibling in person.get_siblings %}
+					{% if "." not in sibling.full_name %}
+					<div class="profile-users clearfix">
+						<div class="itemdiv memberdiv">
+						  <div class="inline pos-rel">
+							<div class="user">
+							  <a href="{{sibling.get_absolute_url}}">
+								<img
+								  src="{{sibling.photo.url}}"
+								  alt="{{sibling.full_name}} photo"
+								/>
+							  </a>
+							</div>
+					  
+							<div class="body">
+							  <div class="name">
+								<a href="{{sibling.get_absolute_url}}">
+								  <!-- <span class="user-status status-online"></span> -->
+								  {{sibling.full_name}}
+								</a>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					  {%endif%}
+					{% endfor %}
+					{% endif %}
+				</div><!-- /#siblings -->
+			</div>
+		</div>
+	</div>
+</body>
+</html>
