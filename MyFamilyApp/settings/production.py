@@ -8,7 +8,11 @@ SECURE_SSL_REDIRECT=True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db-production.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'nutanbga_myfamilyapp',
+        'USER': 'nutanbga_myfamilyappadmin',
+        'PASSWORD': 'MyFamilyApp9812@',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }

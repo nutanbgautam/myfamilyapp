@@ -7,7 +7,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'myfamilyapp',
         'USER': 'myfamilyappadmin',
-        'PASSWORD': '091221@n',
+        'PASSWORD': 'MyFamilyApp9812@',
         'HOST': 'localhost',
         'PORT': '',
     }
